@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import PropTypes from "prop-types";
 import "./BookItem.css";
 
-function BookItem({id, title, image, author, publisher, pubdate, description}) 
+function BookItem({id, title, image, author, price, discount, publisher, pubdate, description}) 
 { 
     return (
         <div className="book">
@@ -22,6 +22,9 @@ function BookItem({id, title, image, author, publisher, pubdate, description})
                     <p className="book__pubdate">
                         <span>출판일</span> {pubdate}
                     </p>
+                    <p className="book__price">
+                        <span>가격</span> {price}
+                    </p>
                     <p className="book__description">
                         <span>{description.replace(/<b>/gi,"").replace(/<\/b>/gi,"").slice(0,200)}</span> 
                     </p>
@@ -35,6 +38,9 @@ BookItem.propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    discount: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     publisher: PropTypes.string.isRequired,
     pubdate: PropTypes.string.isRequired,

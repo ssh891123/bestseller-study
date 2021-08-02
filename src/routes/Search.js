@@ -11,8 +11,8 @@ class Search extends React.Component {
     };
 
     getSearchMovie = async () => {
-        const ID_KEY = 'PoKPGNn3tXFlo5EpAPri';
-        const SECRET_KEY = '8j_Igdim0w';
+        const ID_KEY = 'id_key';
+        const SECRET_KEY = 'sec_key';
         const search = this.state.value;
         
         try {
@@ -22,37 +22,37 @@ class Search extends React.Component {
             else {
                 const {data:
                     {
-                        items }} = await axios.get('/v1/search/movie.json', {
-                            params:{
-                                query: search,
-                                display: 20
-                            },
-                                
-                            headers: {
-                                'X-Naver-Client-Id': ID_KEY,
-                                'X-Naver-Client-Secret': SECRET_KEY
-                            }
-                        });
+                    items }} = await axios.get('/v1/search/movie.json', {
+                        params:{
+                            query: search,
+                            display: 20
+                        },
+                            
+                        headers: {
+                            'X-Naver-Client-Id': ID_KEY,
+                            'X-Naver-Client-Secret': SECRET_KEY
+                        }
+                });
                         
-                        this.setState({movies: items, isLoading: false});
-                    }
-                }
-                catch (error) {
-                    console.log(error);
-                }
-            };
+                this.setState({movies: items, isLoading: false});
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
             
-            componentDidMount() {
-                this.getSearchMovie();
-            };
-            
-            handleChange = (e : any) => {
-                this.setState({value: e.target.value});
-            };
-            
-            handleSubmit = (e : any) => {
-                e.preventDefault(); this.getSearchMovie();
-            };
+    componentDidMount() {
+        this.getSearchMovie();
+    };
+    
+    handleChange = (e : any) => {
+        this.setState({value: e.target.value});
+    };
+    
+    handleSubmit = (e : any) => {
+        e.preventDefault(); this.getSearchMovie();
+    };
             
             render() {
                 const {movies, isLoading} = this.state;

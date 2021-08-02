@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import PropTypes from "prop-types";
 import "./SearchMovie.css";
 
-function SearchMovie({id, year, title, poster, rating, director, actor}) { 
+function BestSellerItem({id, year, title, poster, rating, director, actor}) { 
     return ( 
     <div className="movie">
         <a href={id} target="_blank">
@@ -13,16 +13,16 @@ function SearchMovie({id, year, title, poster, rating, director, actor}) {
                     title.replace(/<b>/gi,"").replace(/<\/b>/gi,"")
                     }</h3> 
                 <p className="movie__rating">
-                    <span>Rating</span> {rating}/10
+                    <span>작가</span> {rating}
                 </p>
                 <p className="movie__year">
-                    <span>Opening Day</span> {year}
+                    <span>출판일</span> {year}
                 </p>
                 <p className="movie__director">
-                    <span>Director</span> {director}
+                    <span>출판사</span> {director}
                 </p>
                 <p className="movie__actor">
-                    <span>Actor</span> {actor}
+                    <span>책소개</span> {actor.slice(0,220)}
                 </p>
             </div>
         </a>
@@ -30,7 +30,7 @@ function SearchMovie({id, year, title, poster, rating, director, actor}) {
     ) 
 }; 
 
-SearchMovie.propTypes = { 
+BestSellerItem.propTypes = { 
     id: PropTypes.string.isRequired,
     year: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -40,4 +40,4 @@ SearchMovie.propTypes = {
     actor: PropTypes.string.isRequired
 }; 
 
-export default SearchMovie;
+export default BestSellerItem;
