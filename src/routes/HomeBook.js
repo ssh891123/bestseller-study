@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import BestSellerItem from '../components/BestSellerItem';
+import BookItem from '../components/BookItem';
 import "./Home.css";
 
 class HomeBook extends React.Component {
@@ -12,8 +12,9 @@ class HomeBook extends React.Component {
   //http://book.interpark.com/blog/basicInfoManageTotalForm.rdo
   //https://www.youtube.com/watch?v=1O496C-79Pg
   getBestSeller = async () => {
+    const SECRET_KEY = 'SECRET_KEY';
     const res = await axios.get(
-      '/api/bestSeller.api?key=[입력]&categoryId=101&output=json'
+      '/api/bestSeller.api?key='+SECRET_KEY+'&categoryId=101&output=json'
     )
     console.log(res.data.item)
     this.setState({books:res.data.item, isLoading: false})
@@ -35,7 +36,7 @@ class HomeBook extends React.Component {
         : (<div><h1>Best Seller</h1>
           <div className="movies"> {
             books.map((book) => (
-              <BestSellerItem key={book.link} id={book.link} 
+              <BookItem key={book.link} id={book.link} 
               title={book.title} rating={book.author}
               year={book.pubDate}
               poster={book.coverLargeUrl}

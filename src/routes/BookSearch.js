@@ -12,33 +12,20 @@ class BookSearch extends React.Component {
     };
 
     getSearchBook = async () => {
-        const ID_KEY = 'PoKPGNn3tXFlo5EpAPri';
-        const SECRET_KEY = '8j_Igdim0w';
-        const search = this.state.value;
-        
+        const SECRET_KEY = '5952E9CD239391177679E2E20F3EDCF14282B693FEF174B7CBE6C98D443D34E4';
+        const BOOKNAME = this.state.value;
         try {
-            if (search === "") {
-                this.setState({books: [], isLoading: false})
+            if(BOOKNAME==="") {
+                this.setState({movies:[], isLoading:false})
             }
             else {
-                const {data: 
-                {
-                    items }} = await axios.get('/v1/search/book.json', {
-                        params:{
-                            query: search,
-                            display: 20
-                        },
-                                
-                        headers: {
-                            'X-Naver-Client-Id': ID_KEY,
-                            'X-Naver-Client-Secret': SECRET_KEY
-                        }
-                });
-                    
-                this.setState({books: items, isLoading: false});
+                const res = await axios.get('/api/search.api?key='+SECRET_KEY+'&query='+BOOKNAME+'&maxResults=10&output=json')
+                console.log(res)
+                console.log(BOOKNAME)
+                console.log(res.data.item)
+                this.setState({books:res.data.item, isLoading: false});
             }
-        }
-        catch (error) {
+        } catch(error) {
             console.log(error);
         }
     };
@@ -74,12 +61,16 @@ class BookSearch extends React.Component {
                         onChange={this.handleChange} placeholder="Input Book Title."/>
                     </div>
                     
-                    <div className="books"> {
-                        books.map(book => (
-                            <BookItem key={book.link} id={book.link} title={book.title}
-                                image={book.image} author={book.author} publisher={book.publisher}
-                                pubdate={book.pubdate} description={book.description}
-                        />))
+                    <div className="movies"> {
+                        books.map((book) => (
+                            <BookItem key={book.link} id={book.link} 
+                            title={book.title} rating={book.author}
+                            year={book.pubDate}
+                            poster={book.coverLargeUrl}
+                            director={book.publisher}
+                            pubdate={book.pubDate} actor={book.description} 
+                            />
+                        ))
                     }
                     </div>
                 </div>
