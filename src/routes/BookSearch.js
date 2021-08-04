@@ -11,22 +11,48 @@ class BookSearch extends React.Component {
         value: ""
     };
 
-    getSearchBook = async () => {
-        const SECRET_KEY = '5952E9CD239391177679E2E20F3EDCF14282B693FEF174B7CBE6C98D443D34E4';
-        const BOOKNAME = this.state.value;
-        try {
-            if(BOOKNAME==="") {
-                this.setState({movies:[], isLoading:false})
-            }
-            else {
-                const res = await axios.get('/api/search.api?key='+SECRET_KEY+'&query='+BOOKNAME+'&maxResults=10&output=json')
-                console.log(res)
-                console.log(BOOKNAME)
-                console.log(res.data.item)
-                this.setState({books:res.data.item, isLoading: false});
-            }
-        } catch(error) {
-            console.log(error);
+    // getSearchBook = async () => {
+    //     const SECRET_KEY = 'secret_key';
+    //     const BOOKNAME = this.state.value;
+    //     try {
+    //         if(BOOKNAME==="") {
+    //             this.setState({movies:[], isLoading:false})
+    //         }
+    //         else {
+    //             const res = await axios.get('/api/search.api?key='+SECRET_KEY+'&query='+BOOKNAME+'&maxResults=10&output=json')
+    //             console.log(res)
+    //             console.log(BOOKNAME)
+    //             console.log(res.data.item)
+    //             this.setState({books:res.data.item, isLoading: false});
+    //         }
+    //     } catch(error) {
+    //         console.log(error);
+    //     }
+    // };
+
+    getSearchBook = async () => { 
+        const ID_KEY = 'id_key'; 
+        const SECRET_KEY = 'secret_key'; 
+        const search = this.state.value; 
+        if (search === "") { 
+            this.setState({books: [], isLoading: false})
+        } 
+        else { 
+            console.log("%c"+search, "color:green");
+            const {
+                data: { items 
+            }} = await axios.get('/v1/search/book.json',{ 
+                params:{ 
+                    query: search, 
+                    display: 20 
+                }, 
+                headers: { 
+                    'X-Naver-Client-Id': ID_KEY, 
+                    'X-Naver-Client-Secret': SECRET_KEY 
+                } 
+            }); 
+            console.log('%cTEST'+items, 'color:red'); 
+            this.setState({books: items, isLoading: false}); 
         }
     };
             
@@ -66,7 +92,7 @@ class BookSearch extends React.Component {
                             <BookItem key={book.link} id={book.link} 
                             title={book.title} rating={book.author}
                             year={book.pubDate}
-                            poster={book.coverLargeUrl}
+                            poster={book.image}
                             director={book.publisher}
                             pubdate={book.pubDate} actor={book.description} 
                             />

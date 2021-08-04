@@ -38,5 +38,14 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://book.interpark.com"
+  "proxy": {
+    "/v1/*": {
+      "target":"https://openapi.naver.com",
+      "secure":false
+    },
+    "/api/*": {
+      "target":"http://book.interpark.com",
+      "secure":false
+    }
+  }
 }
